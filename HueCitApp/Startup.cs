@@ -1,5 +1,8 @@
+using HueCitApp.Connection;
 using HueCitApp.Extensions;
 using HueCitApp.MiddleWare;
+using HueCitApp.Services;
+using HueCitApp.Services.ServiceImp;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -34,6 +37,8 @@ namespace HueCitApp
             services.AddControllersWithViews();
             services.AddApplicationServices(_config);
             services.AddIdentityServices(_config);
+            services.AddTransient<IConnectionDb, ConnectionDb>();
+            services.AddTransient<StudentServiceImp, StudentService>();
 
             services.AddCors(opt =>
             {
@@ -57,6 +62,8 @@ namespace HueCitApp
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+            
+            
             app.UseStaticFiles();
 
             app.UseRouting();
@@ -64,6 +71,8 @@ namespace HueCitApp
             app.UseCors("CorsPolicy");
             app.UseAuthentication();
             app.UseAuthorization();
+
+            
 
             app.UseEndpoints(endpoints =>
             {
