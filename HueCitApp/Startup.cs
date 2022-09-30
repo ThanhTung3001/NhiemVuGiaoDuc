@@ -38,7 +38,8 @@ namespace HueCitApp
             services.AddApplicationServices(_config);
             services.AddIdentityServices(_config);
             services.AddTransient<IConnectionDb, ConnectionDb>();
-            services.AddTransient<StudentServiceImp, StudentService>();
+            services.AddTransient<IStudentService, StudentService>();
+           // services.AddSingleton<DapperContext>();
 
             services.AddCors(opt =>
             {
